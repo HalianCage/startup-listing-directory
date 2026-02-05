@@ -5,6 +5,7 @@ import { ApexOptions } from "apexcharts";
 import flatpickr from "flatpickr";
 import ChartTab from "../common/ChartTab";
 import { CalenderIcon } from "../../icons";
+import { useRouter } from "next/navigation";
 
 type Startup = {
   Sr_No: Number;
@@ -20,6 +21,7 @@ type Startup = {
 };
 
 export default function StartupListing({ data }: { data: Startup[] }) {
+  const router = useRouter();
 
   if (!data.length) {
     return (
@@ -52,23 +54,21 @@ export default function StartupListing({ data }: { data: Startup[] }) {
             <tr className="text-left text-gray-500 dark:text-gray-400">
               <th className="py-2">Startup</th>
               <th>Industry</th>
-              <th>City</th>
-              <th>Investor</th>
-              <th>Investment Type</th>
-              <th>Amount</th>
+              <th>Location</th>
             </tr>
           </thead>
           <tbody>
             {data.map(startup => (
-              <tr key={startup.Sr_No.toString()} className="border-b border-gray-200 last:border-0 dark:border-gray-700">
+              <tr
+                key={startup.Sr_No.toString()}
+                onClick={() => router.push(`/companies/${startup.Sr_No.toString()}`)}
+                className="border-b border-gray-200 last:border-0 dark:border-gray-700 cursor-pointer transition-colors hover:bg-gray-50 dark:hover:bg-white/[0.05]"
+              >
                 <td className="py-3 font-medium text-gray-800 dark:text-white/90">
                   {startup.StartupName}
                 </td>
                 <td className="text-gray-600 dark:text-gray-300">{startup.Industry}</td>
                 <td className="text-gray-600 dark:text-gray-300">{startup.City}</td>
-                <td className="text-gray-600 dark:text-gray-300">{startup.Investors}</td>
-                <td className="text-gray-600 dark:text-gray-300">{startup.InvestmentType}</td>
-                <td className="text-gray-600 dark:text-gray-300">{startup.Amount}</td>
               </tr>
             ))}
           </tbody>
