@@ -24,7 +24,7 @@ export default function StartupListing({ data }: { data: Startup[] }) {
   if (!data.length) {
     return (
       <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
-        <p className="text-gray-500">No startups match the selected filters.</p>
+        <p className="text-gray-500 dark:text-gray-400">No startups match the selected filters.</p>
       </div>
     );
   }
@@ -48,8 +48,8 @@ export default function StartupListing({ data }: { data: Startup[] }) {
       <div className="max-w-full overflow-x-auto custom-scrollbar">
         <div className="mt-6 overflow-x-auto">
         <table className="min-w-full text-sm">
-          <thead className="border-b">
-            <tr className="text-left text-gray-500">
+          <thead className="border-b border-gray-200 dark:border-gray-700">
+            <tr className="text-left text-gray-500 dark:text-gray-400">
               <th className="py-2">Startup</th>
               <th>Industry</th>
               <th>City</th>
@@ -60,15 +60,15 @@ export default function StartupListing({ data }: { data: Startup[] }) {
           </thead>
           <tbody>
             {data.map(startup => (
-              <tr key={startup.Sr_No.toString()} className="border-b last:border-0">
-                <td className="py-3 font-medium">
+              <tr key={startup.Sr_No.toString()} className="border-b border-gray-200 last:border-0 dark:border-gray-700">
+                <td className="py-3 font-medium text-gray-800 dark:text-white/90">
                   {startup.StartupName}
                 </td>
-                <td>{startup.Industry}</td>
-                <td>{startup.City}</td>
-                <td>{startup.Investors}</td>
-                <td>{startup.InvestmentType}</td>
-                <td>{startup.Amount}</td>
+                <td className="text-gray-600 dark:text-gray-300">{startup.Industry}</td>
+                <td className="text-gray-600 dark:text-gray-300">{startup.City}</td>
+                <td className="text-gray-600 dark:text-gray-300">{startup.Investors}</td>
+                <td className="text-gray-600 dark:text-gray-300">{startup.InvestmentType}</td>
+                <td className="text-gray-600 dark:text-gray-300">{startup.Amount}</td>
               </tr>
             ))}
           </tbody>
