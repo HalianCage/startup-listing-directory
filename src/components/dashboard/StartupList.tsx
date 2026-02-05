@@ -1,0 +1,80 @@
+"use client";
+import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+import { ApexOptions } from "apexcharts";
+import flatpickr from "flatpickr";
+import ChartTab from "../common/ChartTab";
+import { CalenderIcon } from "../../icons";
+
+type Startup = {
+  Sr_No: Number;
+  Date: string;
+  StartupName: string;
+  Industry: string;
+  SubVertical: string;
+  City: string;
+  Investors: string;
+  InvestmentType: string;
+  Amount: string;
+  Remarks: string | null;
+};
+
+export default function StartupListing({ data }: { data: Startup[] }) {
+
+  if (!data.length) {
+    return (
+      <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
+        <p className="text-gray-500">No startups match the selected filters.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-2xl border border-gray-200 bg-white px-5 pb-5 pt-5 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6 sm:pt-6">
+      <div className="flex flex-col gap-5 mb-6 sm:flex-row sm:justify-between">
+        <div className="w-full">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
+            Startups
+          </h3>
+          <p className="mt-1 text-gray-500 text-theme-sm dark:text-gray-400">
+            Scroll through, or use the filters on the left to find what you are looking for
+          </p>
+          <p className="mt-1 text-gray-500 text-theme-sm dark:text-gray-400">
+            Showing {data.length} results
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-full overflow-x-auto custom-scrollbar">
+        <div className="mt-6 overflow-x-auto">
+        <table className="min-w-full text-sm">
+          <thead className="border-b">
+            <tr className="text-left text-gray-500">
+              <th className="py-2">Startup</th>
+              <th>Industry</th>
+              <th>City</th>
+              <th>Investor</th>
+              <th>Investment Type</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(startup => (
+              <tr key={startup.Sr_No.toString()} className="border-b last:border-0">
+                <td className="py-3 font-medium">
+                  {startup.StartupName}
+                </td>
+                <td>{startup.Industry}</td>
+                <td>{startup.City}</td>
+                <td>{startup.Investors}</td>
+                <td>{startup.InvestmentType}</td>
+                <td>{startup.Amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+  );
+}
