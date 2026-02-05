@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import BackButton from "./BackButton";
 
 export const metadata: Metadata = {
-  title: "Company Details | TailAdmin - Next.js Dashboard Template",
+  title: "Company Details Page",
   description: "View detailed information about the company",
 };
 

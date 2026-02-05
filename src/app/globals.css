@@ -84,6 +84,7 @@
   --color-orange-200: #fddcab;
   --color-orange-300: #feb273;
   --color-orange-350: #f89422; /*startup india logo color*/
+  --color-orange-380: #c97b23;
   --color-orange-400: #fd853a;
   --color-orange-500: #fb6514;
   --color-orange-600: #ec4a0a;
@@ -294,6 +295,10 @@
 
   .text-orange-350 {
     color: var(--color-orange-350);
+  }
+
+  .text-orange-380 {
+    color: var(--color-orange-380);
   }
 }
 
