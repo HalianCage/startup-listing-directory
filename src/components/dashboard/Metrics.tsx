@@ -2,8 +2,32 @@
 
 import Badge from "../ui/badge/Badge";
 import { ArrowUpIcon, DashIcon, DollarLineIcon, BoxCubeIcon } from "@/icons";
+import data from "@/data/cleaned_startup_funding.json";
+
+function parseAmount(value: string | null | undefined) {
+  if (!value) return 0;
+  const normalized = value.toString().replace(/,/g, "").trim();
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function formatHumanReadable(value: number) {
+  const abs = Math.abs(value);
+  const format = (n: number, suffix: "million" | "billion") => {
+    const str = n.toFixed(1);
+    const trimmed = str.endsWith(".0") ? str.slice(0, -2) : str;
+    return `${trimmed} ${suffix}`;
+  };
+
+  if (abs >= 1_000_000_000) return format(value / 1_000_000_000, "billion");
+  if (abs >= 1_000_000) return format(value / 1_000_000, "million");
+  return value.toString();
+}
 
 export const Metrics = () => {
+  const companiesCount = data.length;
+  const totalFunding = data.reduce((sum, item) => sum + parseAmount(item.Amount), 0);
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
       {/* <!-- Metric Item Start --> */}
@@ -18,7 +42,7 @@ export const Metrics = () => {
               Companies
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              1949
+              {companiesCount}
             </h4>
           </div>
           <Badge color="success">
@@ -40,7 +64,7 @@ export const Metrics = () => {
               Funding
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              5,359
+              {formatHumanReadable(Math.round(totalFunding))}
             </h4>
           </div>
 
