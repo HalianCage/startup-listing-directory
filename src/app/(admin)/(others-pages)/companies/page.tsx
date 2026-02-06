@@ -17,6 +17,8 @@ type PageProps = {
     city?: string;
     investor?: string;
     investmentType?: string;
+    minAmount?: string;
+    maxAmount?: string;
   }>;
 };
 
@@ -30,6 +32,8 @@ export default async function CompaniesPage({ searchParams }: PageProps) {
     city: resolvedSearchParams.city,
     investor: resolvedSearchParams.investor,
     investmentType: resolvedSearchParams.investmentType,
+    minAmount: resolvedSearchParams.minAmount,
+    maxAmount: resolvedSearchParams.maxAmount,
   };
 
   const filteredData = applyFilters(data, filters);

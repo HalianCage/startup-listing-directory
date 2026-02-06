@@ -21,6 +21,8 @@ export default function CompanyFiltersSidebar() {
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
   const [industry, setIndustry] = useState(searchParams.get("industry") ?? "");
   const [city, setCity] = useState(searchParams.get("city") ?? "");
+  const [minAmount, setMinAmount] = useState(searchParams.get("minAmount") ?? "");
+  const [maxAmount, setMaxAmount] = useState(searchParams.get("maxAmount") ?? "");
 
   // Update URL params when filters change
   function updateFilter(key: string, value: string) {
@@ -64,6 +66,8 @@ export default function CompanyFiltersSidebar() {
     setQuery("");
     setIndustry("");
     setCity("");
+    setMinAmount("");
+    setMaxAmount("");
     router.push("/companies");
   };
 
@@ -97,8 +101,41 @@ export default function CompanyFiltersSidebar() {
               placeholder="Search startup..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="input w-full placeholder:text-gray-500 dark:placeholder:text-white/70"
+              className="input w-full border border-gray-300 text-gray-900 dark:border-gray-700 dark:text-white/90 placeholder:text-gray-500 dark:placeholder:text-white/70"
             />
+          </div>
+
+          {/* Funding Range */}
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-800 dark:text-white/90">
+              Funding Amount Range
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="number"
+                inputMode="numeric"
+                placeholder="Min"
+                value={minAmount}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setMinAmount(value);
+                  updateFilter("minAmount", value);
+                }}
+                className="input w-full border border-gray-300 text-gray-900 dark:border-gray-700 dark:text-white/90 placeholder:text-gray-500 dark:placeholder:text-white/70"
+              />
+              <input
+                type="number"
+                inputMode="numeric"
+                placeholder="Max"
+                value={maxAmount}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setMaxAmount(value);
+                  updateFilter("maxAmount", value);
+                }}
+                className="input w-full border border-gray-300 text-gray-900 dark:border-gray-700 dark:text-white/90 placeholder:text-gray-500 dark:placeholder:text-white/70"
+              />
+            </div>
           </div>
 
           {/* Industry Dropdown */}
@@ -138,7 +175,7 @@ export default function CompanyFiltersSidebar() {
           </div>
 
           {/* Clear Filters Button */}
-          {(query || industry || city) && (
+          {(query || industry || city || minAmount || maxAmount) && (
             <button
               onClick={handleClearFilters}
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
