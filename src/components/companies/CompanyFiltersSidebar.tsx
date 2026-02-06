@@ -11,7 +11,7 @@ export default function CompanyFiltersSidebar() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
-  const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+  const { isMobileOpen } = useSidebar();
 
   // Get unique values for dropdowns
   const industries = Array.from(new Set(data.map((item) => item.Industry))).sort();
@@ -78,7 +78,7 @@ export default function CompanyFiltersSidebar() {
   }));
 
   return (
-    <aside className={`fixed top-0 z-40 mt-16 h-screen w-[290px] border-r border-gray-200 bg-white px-5 transition-all duration-300 ease-in-out dark:border-gray-800 dark:bg-gray-900 lg:mt-0 ${isMobileOpen ? "-translate-x-full" : "translate-x-0"} lg:translate-x-0`}>
+    <aside className={`fixed top-0 z-40 mt-16 h-screen w-[290px] border-r border-gray-200 bg-white px-5 transition-all duration-300 ease-in-out dark:border-gray-800 dark:bg-gray-900 lg:mt-0 ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
       <div className="flex flex-col overflow-y-auto py-8 duration-300 ease-linear no-scrollbar">
         <div className="mb-6">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-white/90">

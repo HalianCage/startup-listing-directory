@@ -12,7 +12,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+  const { isMobileOpen } = useSidebar();
   const pathname = usePathname();
   
   // Check if we're on the companies listing page
@@ -22,9 +22,9 @@ export default function AdminLayout({
   // Calculate the filter margin
   const FilterMargin = isCompaniesPage
     ? isMobileOpen
-      ? "ml-0"
-      : "lg:ml-[290px]"
-    : 0;
+      ? "lg:ml-[290px]"
+      : "lg:ml-0"
+    : "";
 
   return (
     <div className="min-h-screen xl:flex">
