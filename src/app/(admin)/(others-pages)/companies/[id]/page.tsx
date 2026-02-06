@@ -107,7 +107,7 @@ export default async function CompanyDetailsPage({ params }: PageProps) {
                   Amount
                 </h3>
                 <p className="text-base font-semibold text-gray-800 dark:text-white/90">
-                  {company.Amount}
+                  {company.Amount+" $"}
                 </p>
               </div>
             </div>
