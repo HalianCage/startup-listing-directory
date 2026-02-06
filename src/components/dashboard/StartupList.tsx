@@ -1,10 +1,4 @@
 "use client";
-import { useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
-import { ApexOptions } from "apexcharts";
-import flatpickr from "flatpickr";
-import ChartTab from "../common/ChartTab";
-import { CalenderIcon } from "../../icons";
 import { useRouter } from "next/navigation";
 
 type Startup = {
