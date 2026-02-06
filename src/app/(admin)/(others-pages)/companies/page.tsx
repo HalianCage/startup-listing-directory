@@ -11,22 +11,25 @@ export const metadata: Metadata = {
 };
 
 type PageProps = {
-  searchParams: {
+  searchParams: Promise<{
     q?: string;
     industry?: string;
     city?: string;
     investor?: string;
     investmentType?: string;
-  };
+  }>;
 };
 
-export default function CompaniesPage({ searchParams }: PageProps) {
+export default async function CompaniesPage({ searchParams }: PageProps) {
+
+  const resolvedSearchParams = await searchParams;
+
   const filters = {
-    search: searchParams.q,
-    industry: searchParams.industry,
-    city: searchParams.city,
-    investor: searchParams.investor,
-    investmentType: searchParams.investmentType,
+    search: resolvedSearchParams.q,
+    industry: resolvedSearchParams.industry,
+    city: resolvedSearchParams.city,
+    investor: resolvedSearchParams.investor,
+    investmentType: resolvedSearchParams.investmentType,
   };
 
   const filteredData = applyFilters(data, filters);
