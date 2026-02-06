@@ -55,6 +55,7 @@ export default function StartupListing({ data }: { data: Startup[] }) {
               <th className="py-2">Startup</th>
               <th>Industry</th>
               <th>Location</th>
+              <th>Funding Raised</th>
             </tr>
           </thead>
           <tbody>
@@ -69,6 +70,7 @@ export default function StartupListing({ data }: { data: Startup[] }) {
                 </td>
                 <td className="text-gray-600 dark:text-gray-300">{startup.Industry}</td>
                 <td className="text-gray-600 dark:text-gray-300">{startup.City}</td>
+                <td className="text-gray-600 dark:text-gray-300">{startup.Amount}</td>
               </tr>
             ))}
           </tbody>

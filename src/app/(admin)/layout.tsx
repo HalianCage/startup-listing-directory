@@ -5,7 +5,7 @@ import AppHeader from "@/layout/AppHeader";
 import Backdrop from "@/layout/Backdrop";
 import CompanyFiltersSidebar from "@/components/companies/CompanyFiltersSidebar";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 export default function AdminLayout({
   children,
@@ -32,7 +32,11 @@ export default function AdminLayout({
       <Backdrop />
       
       {/* Filter Sidebar - Only on companies listing page */}
-      {isCompaniesPage && <CompanyFiltersSidebar />}
+      {isCompaniesPage && (
+        <Suspense fallback={null}>
+          <CompanyFiltersSidebar />
+        </Suspense>
+      )}
       
       {/* Main Content Area */}
       <div
