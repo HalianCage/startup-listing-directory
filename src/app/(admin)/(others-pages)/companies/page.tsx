@@ -19,6 +19,7 @@ type PageProps = {
     investmentType?: string;
     minAmount?: string;
     maxAmount?: string;
+    sort?: string;
   }>;
 };
 
@@ -37,12 +38,23 @@ export default async function CompaniesPage({ searchParams }: PageProps) {
   };
 
   const filteredData = applyFilters(data, filters);
+  const sort = resolvedSearchParams.sort;
+
+  const sortedData =
+    sort === "az"
+      ? [...filteredData].sort((a, b) =>
+          (a.StartupName ?? "")
+            .toString()
+            .toLowerCase()
+            .localeCompare((b.StartupName ?? "").toString().toLowerCase())
+        )
+      : filteredData;
 
   return (
     <div>
       <PageBreadcrumb pageTitle="Companies" />
       <div className="rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
-        <StartupListing data={filteredData} />
+        <StartupListing data={sortedData} />
       </div>
     </div>
   );
