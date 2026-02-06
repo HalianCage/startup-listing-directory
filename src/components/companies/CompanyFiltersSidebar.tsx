@@ -97,7 +97,7 @@ export default function CompanyFiltersSidebar() {
               placeholder="Search startup..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="input w-full"
+              className="input w-full placeholder:text-gray-500 dark:placeholder:text-white/70"
             />
           </div>
 

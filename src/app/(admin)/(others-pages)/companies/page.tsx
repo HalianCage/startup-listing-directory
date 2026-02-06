@@ -25,7 +25,7 @@ export default async function CompaniesPage({ searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
 
   const filters = {
-    search: resolvedSearchParams.q,
+    q: resolvedSearchParams.q,
     industry: resolvedSearchParams.industry,
     city: resolvedSearchParams.city,
     investor: resolvedSearchParams.investor,
