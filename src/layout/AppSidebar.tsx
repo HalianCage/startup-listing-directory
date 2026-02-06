@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useRef, useState, useCallback, useTransition } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useSidebar } from "../context/SidebarContext";
 import {
   BoxCubeIcon,
@@ -96,32 +96,6 @@ const othersItems: NavItem[] = [
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const pathname = usePathname();
-
-  
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [, startTransition ] = useTransition();
-  const [query, setQuery] = useState(searchParams.get("q") ?? "");
-
-  
-  function updateFilter(key: string, value: string) {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (value) params.set(key, value);
-    else params.delete(key);
-
-    startTransition(() => {
-      router.push(`/?${params.toString()}`);
-    });
-  }
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      updateFilter("q", query);
-    }, 300); // debounce
-
-    return () => clearTimeout(t);
-  }, [query]);
 
 
 
@@ -364,17 +338,7 @@ const AppSidebar: React.FC = () => {
         </Link>
       </div>
       <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
-        <div className="mb-4">
-            <label className="mt-2 text-lg font-bold text-gray-800 dark:text-white/90">Startup Name</label>
-            <input
-              type="text"
-              placeholder="Search startup..."
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              className="w-full mt-1 input"
-            />
-          </div>
-        {/* <nav className="mb-6">
+        <nav className="mb-6">
           <div className="flex flex-col gap-4">
             <div>
               <h2
@@ -410,7 +374,7 @@ const AppSidebar: React.FC = () => {
               {renderMenuItems(othersItems, "others")}
             </div>
           </div>
-        </nav> */}
+        </nav>
       </div>
     </aside>
   );
