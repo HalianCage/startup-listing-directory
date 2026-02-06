@@ -5,13 +5,53 @@ import { MoreDotIcon } from "@/icons";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
+import data from "@/data/cleaned_startup_funding.json";
 
 // Dynamically import the ReactApexChart component
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
+function parseAmount(value: string | null | undefined) {
+  if (!value) return 0;
+  const normalized = value.toString().replace(/,/g, "").trim();
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function getYear(value: string | null | undefined) {
+  if (!value) return null;
+  const parts = value.split("/");
+  const year = parts.length >= 3 ? Number(parts[2]) : NaN;
+  return Number.isFinite(year) ? year : null;
+}
+
+function formatHumanReadable(value: number) {
+  const abs = Math.abs(value);
+  const format = (n: number, suffix: "million" | "billion") => {
+    const str = n.toFixed(1);
+    const trimmed = str.endsWith(".0") ? str.slice(0, -2) : str;
+    return `${trimmed} ${suffix}`;
+  };
+
+  if (abs >= 1_000_000_000) return format(value / 1_000_000_000, "billion");
+  if (abs >= 1_000_000) return format(value / 1_000_000, "million");
+  return value.toString();
+}
+
 export default function FundingChart() {
+  const yearlyTotals = data.reduce<Record<number, number>>((acc, item) => {
+    const year = getYear(item.Date);
+    if (year === null) return acc;
+    acc[year] = (acc[year] ?? 0) + parseAmount(item.Amount);
+    return acc;
+  }, {});
+
+  const years = Object.keys(yearlyTotals)
+    .map(Number)
+    .sort((a, b) => a - b);
+  const totals = years.map((year) => Math.round(yearlyTotals[year] ?? 0));
+
   const options: ApexOptions = {
     colors: ["#465fff"],
     chart: {
@@ -39,20 +79,7 @@ export default function FundingChart() {
       colors: ["transparent"],
     },
     xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: years.map(String),
       axisBorder: {
         show: false,
       },
@@ -69,6 +96,9 @@ export default function FundingChart() {
     yaxis: {
       title: {
         text: undefined,
+      },
+      labels: {
+        formatter: (val: number) => formatHumanReadable(val),
       },
     },
     grid: {
@@ -87,14 +117,14 @@ export default function FundingChart() {
         show: false,
       },
       y: {
-        formatter: (val: number) => `${val}`,
+        formatter: (val: number) => formatHumanReadable(val),
       },
     },
   };
   const series = [
     {
       name: "Yearly Funding",
-      data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
+      data: totals,
     },
   ];
   const [isOpen, setIsOpen] = useState(false);
