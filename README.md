@@ -1,4 +1,4 @@
-# Startup India Listing Directory
+# Indian Startup Listing Directory
 
 A Next.js 16 listing website for exploring Indian startup funding data. Built with React 19, TypeScript, and Tailwind CSS v4.
 
