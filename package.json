@@ -1,6 +1,6 @@
 {
-  "name": "free-nextjs-admin-dashboard",
-  "version": "2.2.2",
+  "name": "startup-listing-directory",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

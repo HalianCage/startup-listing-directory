@@ -1,196 +1,183 @@
-# TailAdmin Next.js - Free Next.js Tailwind Admin Dashboard Template
+# Startup India Listing Directory
 
-TailAdmin is a free and open-source admin dashboard template built on **Next.js and Tailwind CSS** providing developers with everything they need to create a feature-rich and data-driven: back-end, dashboard, or admin panel solution for any sort of web project.
+A Next.js 16 listing website for exploring Indian startup funding data. Built with React 19, TypeScript, and Tailwind CSS v4.
 
-![TailAdmin - Next.js Dashboard Preview](./banner.png)
+## 🚀 Overview
 
-With TailAdmin Next.js, you get access to all the necessary dashboard UI components, elements, and pages required to build a high-quality and complete dashboard or admin panel. Whether you're building a dashboard or admin panel for a complex web application or a simple website.
+This is a **cleaned, production-ready content listing website** focused on Indian startup funding data. It started as a generic admin template and has been refactored into a purposeful data explorer with:
 
-TailAdmin utilizes the powerful features of **Next.js 16** and common features of Next.js such as server-side rendering (SSR), static site generation (SSG), and seamless API route integration. Combined with the advancements of **React 19** and the robustness of **TypeScript**, TailAdmin is the perfect solution to help get your project up and running quickly.
+- **Companies listing** with server-side filtering and sorting
+- **Top 10 funded companies** page
+- **Dynamic charts and metrics** powered by real funding data
+- **Company detail pages** with rich layouts
+- **Dark mode** support
+- **Responsive design** (mobile + desktop)
 
-## Overview
+## 📊 Dataset
 
-TailAdmin provides essential UI components and layouts for building feature-rich, data-driven admin dashboards and control panels. It's built on:
+The Home page is powered by `src/data/cleaned_startup_funding.json` with fields:
 
-* Next.js 16.x
-* React 19
-* TypeScript
-* Tailwind CSS V4
+- `Sr_No`: Sequential ID
+- `Date`: Funding date
+- `StartupName`: Company name
+- `Industry`: Sector
+- `SubVertical`: Sub-category
+- `City`: Location
+- `Investors`: Investor names
+- `InvestmentType`: Round type
+- `Amount`: Funding amount (comma-formatted string)
+- `Remarks`: Optional notes
 
-### Quick Links
+## 🛠️ Tech Stack
 
-* [✨ Visit Website](https://tailadmin.com)
-* [📄 Documentation](https://tailadmin.com/docs)
-* [⬇️ Download](https://tailadmin.com/download)
-* [🖌️ Figma Design File (Community Edition)](https://www.figma.com/community/file/1463141366275764364)
-* [⚡ Get PRO Version](https://tailadmin.com/pricing)
+- **Framework**: Next.js 16 (App Router)
+- **UI**: React 19 + TypeScript
+- **Styling**: Tailwind CSS v4
+- **Charts**: ApexCharts + react-apexcharts
+- **Icons**: Custom SVG icons via SVGR loader
+- **Build**: Turbopack
 
-### Demos
+## 📁 Project Structure
 
-* [Free Version](https://nextjs-free-demo.tailadmin.com)
-* [Pro Version](https://nextjs-demo.tailadmin.com)
-
-### Other Versions
-
-- [Next.js Version](https://github.com/TailAdmin/free-nextjs-admin-dashboard)
-- [React.js Version](https://github.com/TailAdmin/free-react-tailwind-admin-dashboard)
-- [Vue.js Version](https://github.com/TailAdmin/vue-tailwind-admin-dashboard)
-- [Angular Version](https://github.com/TailAdmin/free-angular-tailwind-dashboard)
-- [Laravel Version](https://github.com/TailAdmin/tailadmin-laravel)
-
-## Installation
-
-### Prerequisites
-
-To get started with TailAdmin, ensure you have the following prerequisites installed and set up:
-
-* Node.js 18.x or later (recommended to use Node.js 20.x or later)
-
-### Cloning the Repository
-
-Clone the repository using the following command:
-
-```bash
-git clone https://github.com/TailAdmin/free-nextjs-admin-dashboard.git
+```
+src/
+├── app/
+│   ├── (admin)/                 # Main layout with sidebar
+│   │   ├── (others-pages)/
+│   │   │   ├── companies/        # Companies listing + filters sidebar
+│   │   │   └── top-funded/      # Top 10 funded companies
+│   │   ├── layout.tsx            # Main layout wrapper
+│   │   └── page.tsx             # Dashboard home
+│   ├── (full-width-pages)/
+│   │   └── (error-pages)/
+│   │       └── error-404/       # Custom 404 page
+│   ├── layout.tsx                # Root layout
+│   └── not-found.tsx            # Global 404
+├── components/
+│   ├── common/                  # Shared components
+│   │   ├── GridShape.tsx
+│   │   ├── PageBreadCrumb.tsx
+│   │   └── ThemeToggleButton.tsx
+│   ├── companies/
+│   │   └── CompanyFiltersSidebar.tsx  # Companies filters sidebar
+│   ├── dashboard/                     # Home page components
+│   │   ├── Description.tsx
+│   │   ├── FundingChart.tsx
+│   │   ├── Metrics.tsx
+│   │   ├── ProjectDescription.tsx
+│   │   └── StartupList.tsx
+│   ├── form/
+│   │   ├── Label.tsx
+│   │   └── Select.tsx
+│   └── ui/
+│       ├── badge/
+│       ├── button/
+│       ├── dropdown/
+│       └── modal/
+├── context/
+│   └── SidebarContext.tsx          # Sidebar state management
+├── data/
+│   └── cleaned_startup_funding.json # Main dataset
+├── icons/
+│   ├── index.tsx                  # Icon barrel exports
+│   └── *.svg                     # Minimal set of used icons
+├── layout/
+│   ├── AppHeader.tsx
+│   ├── Backdrop.tsx
+│   └── index.ts
+└── utils/
+    └── ApplyFilters.ts            # Server-side filtering logic
 ```
 
-> Windows Users: place the repository near the root of your drive if you face issues while cloning.
+## 🚦 Routes
 
-1. Install dependencies:
+| Route | Description |
+|-------|-------------|
+| `/` | Home page with metrics, chart, and quick links |
+| `/companies` | Companies listing with filters sidebar (search, industry, city, funding range, A→Z sort) |
+| `/companies/[id]` | Company detail page with funding highlights and investor info |
+| `/top-funded` | Top 10 companies by funding amount |
+| `/error-404` | Custom 404 page |
 
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+## 🎯 Key Features
 
-   > Use `--legacy-peer-deps` flag if you face peer-dependency error during installation.
+### Companies Listing
+- **Server-side filtering** via URL query params
+- **Filters sidebar** (on companies page)
+  - String search (case-insensitive)
+  - Industry dropdown
+  - City dropdown
+  - Funding amount range (min/max)
+  - Sort: A→Z
+- **Responsive Filters Sidebar**: Open on desktop, toggle on mobile
+- **Table**: Shows Startup, Industry, Location, and Funding Raised
 
-2. Start the development server:
+### Top Funded Page
+- **Static list** of top 10 companies by Amount
+- **Info card** with description
+- **Clickable rows** linking to company detail
 
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+### Home Page
+- **Basic metrics**: Total companies, total funding
+- **Funding chart**: Yearly totals with human-readable y-axis
+- **Quick links**: Companies and Top Funded cards
 
-## Components
+### Company Details Page
+- **Rich layout** with badges and accent colors
+- **Funding highlight** (Amount, Investors, InvestmentType)
+- **Investor name pills**
+- **Remarks section**
+- **Breadcrumb navigation**
 
-TailAdmin is a pre-designed starting point for building a web-based dashboard using Next.js and Tailwind CSS. The template includes:
+### UI/UX
+- **Dark mode** toggle in header
+- **Responsive design** across device sizes
+- **Hamburger menu** on companies page to toggle filters sidebar
+- **Clean typography** and consistent spacing
 
-* Sophisticated and accessible sidebar
-* Data visualization components
-* Profile management and custom 404 page
-* Tables and Charts(Line and Bar)
-* Authentication forms and input elements
-* Alerts, Dropdowns, Modals, Buttons and more
-* Can't forget Dark Mode 🕶️
+## 🛠️ Development
 
-All components are built with React and styled using Tailwind CSS for easy customization.
+### Prerequisites
+- Node.js 18.x or later (20.x+ recommended)
+- npm or yarn
 
-## Feature Comparison
+### Setup
 
-### Free Version
+```bash
+# Clone
+git clone <your-repo-url>
+cd startup-listing-directory
 
-* 1 Unique Dashboard
-* 30+ dashboard components
-* 50+ UI elements
-* Basic Figma design files
-* Community support
+# Install
+npm install
 
-### Pro Version
+# Dev
+npm run dev
 
-* 7 Unique Dashboards: Analytics, Ecommerce, Marketing, CRM, SaaS, Stocks, Logistics (more coming soon)
-* 500+ dashboard components and UI elements
-* Complete Figma design file
-* Email support
+# Build
+npm run build
 
-To learn more about pro version features and pricing, visit our [pricing page](https://tailadmin.com/pricing).
+# Start
+npm start
+```
 
-## Changelog
-
-### Version 2.2.2 - [December 30, 2025]
-
-* Fixed date picker positioning and functionality in Statistics Chart.
+### Build Notes
+- Uses **Turbopack** for fast builds
+- **SVGR loader** configured in `next.config.ts` for SVG imports
+- **Tailwind CSS v4** with custom accent colors:
+  - Orange: `#f89422`
+  - Green: `#a4cd39`
 
 
-### Version 2.1.0 - [November 15, 2025]
+## References
+- Dataset Credits: https://www.kaggle.com/datasets/sudalairajkumar/indian-startup-funding
+- Basic Dataset Preprocessing: https://colab.research.google.com/drive/1mg-8KaikmXQ6TJHQsDA4-lnTiXVLD1En?usp=sharing
+- UI: https://demo.tailadmin.com/
 
-* Updated to Next.js 16.x
-* Fixed all reported minor bugs
+## 📄 License
 
-### Version 2.0.2 - [March 25, 2025]
+MIT License
 
-* Upgraded to Next.js 16.x for [CVE-2025-29927](https://nextjs.org/blog/cve-2025-29927) concerns
-* Included overrides vectormap for packages to prevent peer dependency errors during installation.
-* Migrated from react-flatpickr to flatpickr package for React 19 support
+---
 
-### Version 2.0.1 - [February 27, 2025]
-
-#### Update Overview
-
-* Upgraded to Tailwind CSS v4 for better performance and efficiency.
-* Updated class usage to match the latest syntax and features.
-* Replaced deprecated class and optimized styles.
-
-#### Next Steps
-
-* Run npm install or yarn install to update dependencies.
-* Check for any style changes or compatibility issues.
-* Refer to the Tailwind CSS v4 [Migration Guide](https://tailwindcss.com/docs/upgrade-guide) on this release. if needed.
-* This update keeps the project up to date with the latest Tailwind improvements. 🚀
-
-### v2.0.0 (February 2025)
-
-A major update focused on Next.js 16 implementation and comprehensive redesign.
-
-#### Major Improvements
-
-* Complete redesign using Next.js 16 App Router and React Server Components
-* Enhanced user interface with Next.js-optimized components
-* Improved responsiveness and accessibility
-* New features including collapsible sidebar, chat screens, and calendar
-* Redesigned authentication using Next.js App Router and server actions
-* Updated data visualization using ApexCharts for React
-
-#### Breaking Changes
-
-* Migrated from Next.js 14 to Next.js 16
-* Chart components now use ApexCharts for React
-* Authentication flow updated to use Server Actions and middleware
-
-[Read more](https://tailadmin.com/docs/update-logs/nextjs) on this release.
-
-### v1.3.4 (July 01, 2024)
-
-* Fixed JSvectormap rendering issues
-
-### v1.3.3 (June 20, 2024)
-
-* Fixed build error related to Loader component
-
-### v1.3.2 (June 19, 2024)
-
-* Added ClickOutside component for dropdown menus
-* Refactored sidebar components
-* Updated Jsvectormap package
-
-### v1.3.1 (Feb 12, 2024)
-
-* Fixed layout naming consistency
-* Updated styles
-
-### v1.3.0 (Feb 05, 2024)
-
-* Upgraded to Next.js 14
-* Added Flatpickr integration
-* Improved form elements
-* Enhanced multiselect functionality
-* Added default layout component
-
-## License
-
-TailAdmin Next.js Free Version is released under the MIT License.
-
-## Support
-If you find this project helpful, please consider giving it a star on GitHub. Your support helps us continue developing and maintaining this template.
+Built with ❤️ for the Indian startup ecosystem.
