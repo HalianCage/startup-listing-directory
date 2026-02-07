@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSidebar } from "@/context/SidebarContext";
 import data from "@/data/cleaned_startup_funding.json";

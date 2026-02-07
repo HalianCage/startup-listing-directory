@@ -2,7 +2,7 @@ import data from "@/data/cleaned_startup_funding.json";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import StartupListing from "@/components/dashboard/StartupList";
 import { Metadata } from "next";
-import React from "react";
+
 
 export const metadata: Metadata = {
   title: "Top Funded Companies",

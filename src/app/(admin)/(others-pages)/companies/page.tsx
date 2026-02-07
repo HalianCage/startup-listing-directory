@@ -3,7 +3,6 @@ import { applyFilters } from '@/utils/ApplyFilters';
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import StartupListing from "@/components/dashboard/StartupList";
 import { Metadata } from "next";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "StartUp Listing Page",
