@@ -169,6 +169,12 @@ npm start
   - Green: `#a4cd39`
 
 
+## Things I could improve in 2 more days
+- Add more filtering options, like sort by funding amount, date, etc.
+- Add more visualizations and summary statistics on the home page,
+- Curate and preprocess a better dataset, to improve the information presented.
+
+
 ## References
 - Dataset Credits: https://www.kaggle.com/datasets/sudalairajkumar/indian-startup-funding
 - Basic Dataset Preprocessing: https://colab.research.google.com/drive/1mg-8KaikmXQ6TJHQsDA4-lnTiXVLD1En?usp=sharing
