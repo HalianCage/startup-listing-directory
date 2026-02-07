@@ -8,10 +8,10 @@ export const Description = () => {
             The India's Largest Startup Funding Directory
             </h1>
             <p className="text-xl mt-5 text-gray-500 text-theme-sm dark:text-gray-400">
-            Browse through Indian startups funded in recent years.
+            Track Indian startup funding trends, key investors, and investment patterns
             </p>
             <p className="text-xl text-gray-500 text-theme-sm dark:text-gray-400">
-            Or use the filters on the left pinpoint what you are looking for. 
+            across India's growing innovation landscape
             </p>
         </div>
     )
